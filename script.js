@@ -1,17 +1,17 @@
 const NOMBRE = document.getElementById('nombre');
 const BOTON_NOMBRE = document.getElementById('botonNombre');
-const URL =  'https://jsonplaceholder.typicode.com/users';
+const URL = 'https://jsonplaceholder.typicode.com/users';
 const RECUPERAR_DATOS = document.getElementById('recuperarDatos');
-const CONTAINER = document.querySelector('container');
+const CONTAINER = document.getElementById('container');
 const IMPRIMIR_DATOS = document.getElementById('imprimirDatos');
 
-funcion obtenerDatos(funcion){
-    try{
-        fetch(URL_USUARIOS)
-        .then(response => response.json())
-        .then(data => {
-            funcion(data)
-        }) 
+function obtenerDatos(funcion) {
+    try {
+        fetch(URL)
+            .then(response => response.json())
+            .then(data => {
+                funcion(data)
+            })
     } catch {
         console.warn('No funciona el fetch')
     }
@@ -19,11 +19,11 @@ funcion obtenerDatos(funcion){
 
 
 BOTON_NOMBRE.addEventListener('click', () => {
-    NOMBRE = "Luis"
-    alert("Su nombre es "+NOMBRE.value+" "+APELLIDO.value)
+
+    alert("Su nombre es " + NOMBRE.value)
 })
 
-function datosEnConsola(data){
+function datosEnConsola(data) {
     console.table(data)
 }
 
@@ -31,20 +31,21 @@ RECUPERAR_DATOS.addEventListener('click', () => {
     obtenerDatos(datosEnConsola)
 })
 
-function mostrarDatos(data){
+function mostrarDatos(data) {
     let htmlContentToAppend = "";
-        for (let usuario of data) {     
-            htmlContentToAppend += `
+    for (let usuario of data) {
+        htmlContentToAppend += `
             <div class="border">
             <div>Nombre: ${usuario.name}</div>
             <div>Usuario: ${usuario.username}</div>
             <div>Email: ${usuario.email}</div>
             </div>
         `;
-    ;
-    CONTAINER.innerHTML = htmlContentToAppend;
+        ;
+        CONTAINER.innerHTML = htmlContentToAppend;
+    }
 }
 
-IMPRIMIR_DATOS.addeventListener('click'. () => {
+IMPRIMIR_DATOS.addEventListener('click', () => {
     obtenerDatos(mostrarDatos)
 })
